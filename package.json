@@ -1,0 +1,17 @@
+{
+    "name": "nodejs-kafka-data-streaming",
+    "version": "1.0.0",
+    "description": "Realtime data streaming application with Apache Kafka to produce and consume data.",
+    "main": "app.js",
+    "scripts": {
+        "start": "node producer.js",
+        "start-consumer": "node consumer.js",
+        "new-topic": "node topic.js"
+    },
+    "author": "Md Riadul Islam",
+    "dependencies": {
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "kafka-node": "^4.1.3"
+    }
+}
