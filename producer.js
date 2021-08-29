@@ -6,29 +6,30 @@ const client = new Kafka.KafkaClient({ kafkaHost: config.KafkaHost });
 const producer = new Kafka.Producer(client, { requireAcks: 1, partitionerType: 2 });
 
 const pushDataToKafka = (dataToPush) => {
-
     try {
-        let payloadToKafkaTopic = [{ topic: config.KafkaTopic, messages: JSON.stringify(dataToPush) }];
+        let payloadToKafkaTopic = [
+            {
+                topic: config.KafkaTopic,
+                messages: JSON.stringify(dataToPush)
+            }
+        ];
+
         producer.send(payloadToKafkaTopic, (err, res) => {
             console.log('data: ', payloadToKafkaTopic);
             console.log('response: ', res);
             console.log('err: ', err);
         });
 
-
-
-        
         return true;
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
         return false;
     }
 };
 
-app.get('/', (req, res) => {
+app.get('/push-data-to-producer', (req, res) => {
     pushDataToKafka(req.query) ?
-        res.end('SUCCESS! Data successfully sent to producer') :
-        res.end('FAILED! Data failed to send to producer');
+        res.end('SUCCESS! Data successfully pushed to producer') :
+        res.end('FAILED! Data failed to PUSH.');
 });
 
